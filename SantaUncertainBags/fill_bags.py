@@ -3,13 +3,14 @@ from numpy import mean, std
 import sys
 import pandas as pd
 from collections import Counter
+from copy import deepcopy
 
-presents = ["horse", "ball", "bike", "train", "coal", "book", "doll", "block", "gloves"]
+presents = ["horse", "ball", "bike", "train", "coal", "book", "doll", "blocks", "gloves"]
 
 
 def my_sum(values):
     sum_ = 0
-    for n, v, k in values:
+    for n, v in values:
         sum_ += v
     return sum_
 
@@ -26,52 +27,52 @@ def sort_by_lighter(samples_n):
     return sorted(samples_n, key=lambda x: x[1]+x[2])
 
 
+def greedy_selection(all_items, num_gifts):
+    curr_val = all_items.pop(len(all_items)-1)
+    curr_bag = [curr_val]
+    num_gifts -= 1
+    while num_gifts > 0 and my_sum(curr_bag) < 49:
+        curr_bag.append(all_items.pop(0))
+        num_gifts -= 1
+    return curr_bag, num_gifts
+
+
+
+
 samples_n = []
 for present in presents:
     print(present)
     sample = get_sample(present, 100)
-    samples_n.append((present, mean(sample), std(sample), max(sample)))
+    samples_n.append([present, mean(sample), std(sample), max(sample), 0])
 print(samples_n)
+
 
 path_ = sys.argv[1]
 gifts_df = pd.read_csv(path_ + "\\" + "gifts.csv")
 gifts = list(gifts_df["GiftId"])
 num_gifts = len(gifts)
 gifts = Counter([val.split("_")[0] for val in gifts])
-
 sorted_gifts_lighter = sort_by_lighter(samples_n)
-print(sorted_gifts_lighter)
-i = 1000
+all_items = []
+for name, mean_, std_, max_, counter in sorted_gifts_lighter:
+    curr_counter = gifts[name]
+    all_items += [(name + "_" + str(k), mean_) for k in range(curr_counter)]
+print(all_items)
 j = 0
 bags = []
-while num_gifts > 0 and j < len(gifts):
-    curr_gift = sorted_gifts_lighter[j]
-    print(curr_gift)
-    curr_type, curr_mean, curr_std, curr_max = curr_gift
-    curr_counter = gifts[curr_type]
-    print(curr_counter)
-    curr_bag = []
-    k = 0
-    while curr_counter > 0:
-        if my_sum(curr_bag) < 50:
-            curr_bag.append((curr_type, curr_mean, k))
-        else:
-            bags.append(curr_bag)
-            curr_bag = [(curr_type, curr_mean, k)]
-            i -= 1
+while num_gifts > 0:
+    curr_bag, num_gifts = greedy_selection(all_items, num_gifts)
+    bags.append(curr_bag)
+    print(len(bags), num_gifts)
+print(bags)
 
-        curr_counter -= 1
-        k += 1
-        num_gifts -= 1
-    j += 1
-    print(j)
 
-print(len(bags), i)
+print(len(bags))
 with open("first.csv", "w") as submission:
     submission.write("Gifts\n")
     for bag in bags:
-        line = "\t".join([bag[i][0] + "_" + str(bag[i][2]) for i in range(len(bag))])
+        line = "\t".join([bag[i][0] for i in range(len(bag))])
         submission.write(line+"\n")
 
-
+print(gifts)
 print(samples_n)
