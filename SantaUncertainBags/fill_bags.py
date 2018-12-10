@@ -28,10 +28,10 @@ def sort_by_lighter(samples_n):
 
 
 def greedy_selection(all_items, num_gifts):
-    curr_val = all_items.pop(len(all_items)-1)
-    curr_bag = [curr_val]
-    num_gifts -= 1
-    while num_gifts > 0 and my_sum(curr_bag) < 49:
+    #curr_val = all_items.pop(len(all_items)-1)
+    curr_bag = []
+    #num_gifts -= 1
+    while num_gifts > 0 and my_sum(curr_bag) < 47:
         curr_bag.append(all_items.pop(0))
         num_gifts -= 1
     return curr_bag, num_gifts
