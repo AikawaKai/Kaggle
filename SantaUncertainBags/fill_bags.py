@@ -3,7 +3,6 @@ from numpy import mean, std
 import sys
 import pandas as pd
 from collections import Counter
-from copy import deepcopy
 
 presents = ["horse", "ball", "bike", "train", "coal", "book", "doll", "blocks", "gloves"]
 
