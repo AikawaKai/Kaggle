@@ -32,7 +32,7 @@ random.shuffle(shuffled_set)
 while len(all_set) > 0:
     # start = time.time()
     b = numpy.array((first_city[0], first_city[1]))
-    shuffled_set = shuffled_set[:1000]
+    shuffled_set = shuffled_set[:4000]
     distances = []
     for key, value in shuffled_set:
         a = numpy.array((value[0], value[1]))
