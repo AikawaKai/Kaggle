@@ -17,7 +17,8 @@ def main():
     score = 0.0
     s = tour["Path"].values
     with open("./data/tour_distances1.csv", "w") as tour_dist:
-        tour_dist.write("start,end,dist,start_needs_to_be_prime,start_is_prime,end_is_prime\n")
+        tour_dist.write("Path, dist, is_prime, needs_to_be_prime\n")
+        tour_dist.write("0, 0, 0, 0\n")
         for i in range(0, len(s) - 1):
             p1 = arr[s[i]]
             p2 = arr[s[i + 1]]
@@ -28,15 +29,11 @@ def main():
                 r = "0"
             if ((i + 1) % 10 == 0) and (s[i] not in primes):
                 stepSize *= 1.1
-                tour_dist.write(str(s[i]) + "," + str(s[i + 1]) + "," + str(stepSize) + ",1,0,"+r+"\n")
+                tour_dist.write(str(s[i + 1]) + "," + str(stepSize) + "," + r + ",1\n")
             elif ((i + 1) % 10 == 0) and (s[i] in primes):
-                tour_dist.write(str(s[i]) + "," + str(s[i + 1]) + "," + str(stepSize) + ",1,1,"+r+"\n")
+                tour_dist.write(str(s[i + 1]) + "," + str(stepSize) + "," + r + ",1\n")
             else:
-                if s[i] in primes:
-                    v = "1"
-                else:
-                    v = "0"
-                tour_dist.write(str(s[i]) + "," + str(s[i + 1]) + "," + str(stepSize) + ",0,"+v+","+r+"\n")
+                tour_dist.write(str(s[i + 1]) + "," + str(stepSize) + "," + r + ",0\n")
             # print(stepSize)
             score += stepSize
     print(score)
