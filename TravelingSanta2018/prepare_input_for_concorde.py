@@ -80,4 +80,4 @@ class Tour:
 
 
 tour = Tour('C:\\Users\\marco\\linkern.tour')
-tour.to_csv("./submission_concorde1.csv")
+tour.to_csv("./submission_concorde4.csv")
