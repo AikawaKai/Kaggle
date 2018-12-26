@@ -5,7 +5,7 @@ import math
 
 def main():
     cities = pd.read_csv("./data/cities.csv")
-    tour = pd.read_csv("./submission_concorde1.csv")
+    tour = pd.read_csv("./submission_concorde4.csv")
     ids = cities["CityId"]
     primes = [p for p in sympy.primerange(0, len(ids))]
 
@@ -37,5 +37,6 @@ def main():
             # print(stepSize)
             score += stepSize
     print(score)
+
 
 main()
