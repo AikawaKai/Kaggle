@@ -5,7 +5,7 @@ import math
 
 def main():
     cities = pd.read_csv("./data/cities.csv")
-    tour = pd.read_csv("./submission_concorde4.csv")
+    tour = pd.read_csv("./submission_concorde7.csv")
     ids = cities["CityId"]
     primes = [p for p in sympy.primerange(0, len(ids))]
 
@@ -16,7 +16,7 @@ def main():
         arr[id] = (all_x[i], all_y[i])
     score = 0.0
     s = tour["Path"].values
-    with open("./data/tour_distances1.csv", "w") as tour_dist:
+    with open("./data/tour_distances2.csv", "w") as tour_dist:
         tour_dist.write("Path, dist, is_prime, needs_to_be_prime\n")
         tour_dist.write("0, 0, 0, 0\n")
         for i in range(0, len(s) - 1):

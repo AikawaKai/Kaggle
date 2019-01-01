@@ -79,5 +79,5 @@ class Tour:
         pd.DataFrame({'Path': self.data}).to_csv(filename, index=False)
 
 
-tour = Tour('C:\\Users\\marco\\linkern.tour')
-tour.to_csv("./submission_concorde4.csv")
+tour = Tour('C:\\Users\\marco\\linkern2.tour')
+tour.to_csv("./submission_concorde7.csv")
