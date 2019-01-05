@@ -85,7 +85,7 @@ def swap(cities, tour, i, row):
 
 def main():
     cities = pd.read_csv("./data/cities.csv")
-    tour = pd.read_csv("./data/tour_distances2.csv")
+    tour = pd.read_csv("./data/tour_distances3.csv")
     """
     print(tour.keys())
     print(tour["needs_to_be_prime"])

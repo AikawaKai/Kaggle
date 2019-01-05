@@ -74,7 +74,7 @@ def check_swap(cities, res1, res2, curr_dist):
 
 
 if __name__ == '__main__':
-    tour = pd.read_csv("./data/tour_distances1.csv")
+    tour = pd.read_csv("./data/tour_distances3.csv")
     cities = pd.read_csv("./data/cities.csv")
 
     path = tour["Path"].values
